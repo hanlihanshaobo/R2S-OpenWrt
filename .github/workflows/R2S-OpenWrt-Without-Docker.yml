@@ -1,11 +1,7 @@
 name: R2S-OpenWrt-Without-Docker
 
 on:
-  schedule:
-    - cron: 5 9 * * *
-  watch:
-    types: started
-
+  workflow_dispatch:
 jobs:
   build:
     runs-on: ubuntu-18.04
@@ -86,11 +82,11 @@ jobs:
         cd openwrt
         let make_process=$(nproc)+1
         make -j${make_process} V=s || make -j${make_process} V=s || make -j1 V=s
-    - name: Cleaning
-      run: |
-        df -h
-        cd openwrt/bin/targets/rockchip/armv8
-        /bin/bash ../../../../../SCRIPTS/06_cleaning.sh
+#    - name: Cleaning
+#      run: |
+#        df -h
+#        cd openwrt/bin/targets/rockchip/armv8
+#        /bin/bash ../../../../../SCRIPTS/06_cleaning.sh
     - name: Print Disk Space After
       run: df -h
     - name: Assemble Artifact
